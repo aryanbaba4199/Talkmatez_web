@@ -10,6 +10,7 @@ const Api = {
   getLanguages : `${API_URL}/helpers/getLanguages`,
   getUsers: `${API_URL}/users/getUsers`,
   updateUser : `${API_URL}/users/updateUser`,
+  createTutor : `${API_URL}/tutors/createTutor`,
 };
 
 export default Api;

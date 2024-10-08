@@ -32,8 +32,25 @@ const page = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async() => {
-    
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try{
+      const res = await axios.post(Api.createTutor, {formData});
+      if(res.status===200){
+        Swal.fire({
+          title : 'Success', 
+          icon : 'success',
+          text : 'Tutor Created Successfully'
+        })
+      }
+    }catch(e){
+      Swal.fire({
+        title : 'Error',
+        icon : 'error',
+        text : 'Error creating Tutor'
+      })
+      console.error(e);
+    }
   };
 
   const getLanguages = async () => {
@@ -50,7 +67,9 @@ const page = () => {
 
   return (
     <>
+        
       <div className="mt-20 m-4 grid md:grid-cols-3 grid-cols-1">
+ 
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
@@ -71,7 +90,7 @@ const page = () => {
             name="email"
             variant="outlined"
             color="success"
-            
+            type="email"
             value={formData.email}
             onChange={(e) => handleChange(e)}
             required
@@ -195,6 +214,7 @@ const page = () => {
             fullWidth
             label="Select your rate in coins"
             name="rate"
+            type="number"
             variant="outlined"
             color="success"
             required
@@ -215,11 +235,13 @@ const page = () => {
             multiline
           />
         </div>
-
+    
       </div>
       <div className="flex justify-center items-center">
-        <Button onClick={handleSubmit} variant="contained" color="success">Submit</Button>
+        <Button onClick={(e)=>handleSubmit(e)} variant="contained" color="success">Submit</Button>
       </div>
+
+      
     </>
   );
 };
