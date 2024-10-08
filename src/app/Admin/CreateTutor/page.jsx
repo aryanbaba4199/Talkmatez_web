@@ -20,7 +20,7 @@ const defaulFormData = {
   greet: "",
 };
 
-const page = () => {
+const Page = () => {
   const [formData, setFormData] = useState(defaulFormData);
   const [languages, setLanguages] = useState("English");
 
@@ -246,4 +246,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
