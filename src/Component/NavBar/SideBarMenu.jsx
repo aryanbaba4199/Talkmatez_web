@@ -1,17 +1,67 @@
-import { Typography } from '@mui/material'
-import Link from 'next/link';
-import React from 'react'
-import { IoCreateOutline } from "react-icons/io5";
+import { Typography } from "@mui/material";
+import Link from "next/link";
+import React, { useState } from "react";
+import { FaChevronCircleUp } from "react-icons/fa";
+import { SubMenuData } from "@/Context/menuData";
 
-const SideBarMenu = ({setShowMenu}) => {
+const SideBarMenu = ({ setShowMenu }) => {
+  const [openMenu, setOpenMenu] = useState({});
+
+  const toggleMenu = (menuName) => {
+    setOpenMenu((prevState) => ({
+      ...prevState,
+      [menuName]: !prevState[menuName],
+    }));
+  };
+
   return (
-    <div className='pt-20'>
-        <div onClick={()=>setShowMenu(false)} className='flex justify-center items-center px-8 gap-2 hover:bg-gray-200 py-1 text-[#15892e]'>
-            <IoCreateOutline/>
-            <Link href='/Admin/CreateTutor'>Create Tutor</Link>
-        </div>
-    </div>
-  )
-}
+    <div className="pt-20">
+      <div>
+        {SubMenuData.map((menu, index) => (
+          <div key={index}>
+            {/* Parent Menu */}
+            <div
+              onClick={() => toggleMenu(menu.name)}
+              className="pl-8 flex justify-between hover:cursor-pointer items-center px-8 gap-2 hover:bg-gray-300 py-1 text-[#15892e]"
+            >
+              <div className="flex justify-start items-center gap-2">
+              {menu.icon}
+              <Typography className="font-semibold">
+                {menu.name}
+              </Typography>
+              </div>
+              <FaChevronCircleUp
+                className={`transition-all ease-in-out ${
+                  openMenu[menu.name] ? "" : "rotate-180"
+                }`}
+              />
+            </div>
 
-export default SideBarMenu
+            {/* Child Menus */}
+            {openMenu[menu.name] &&
+              menu.subMenus.map((subMenu, subIndex) => (
+                <div
+                  key={subIndex}
+                  onClick={() => setShowMenu(false)}
+                  className="flex justify-start items-center pl-16 gap-2 hover:bg-gray-200 py-1 text-[#15892e]"
+                >
+                  {menu.icon}
+                  <Link href={subMenu.path}>{subMenu.name}</Link>
+                </div>
+              ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Another static menu */}
+      <div
+        onClick={() => setShowMenu(false)}
+        className="flex justify-center items-center px-8 gap-2 hover:bg-gray-200 py-1 text-[#15892e]"
+      >
+        <Link href="/Admin/CreateTutor">Create Tutor</Link>
+      </div>
+    </div>
+  );
+};
+
+export default SideBarMenu;

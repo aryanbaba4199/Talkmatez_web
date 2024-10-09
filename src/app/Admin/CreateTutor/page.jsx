@@ -32,23 +32,23 @@ const Page = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res = await axios.post(Api.createTutor, {formData});
-      if(res.status===200){
+    try {
+      const res = await axios.post(Api.createTutor, { formData });
+      if (res.status === 200) {
         Swal.fire({
-          title : 'Success', 
-          icon : 'success',
-          text : 'Tutor Created Successfully'
-        })
+          title: "Success",
+          icon: "success",
+          text: "Tutor Created Successfully",
+        });
       }
-    }catch(e){
+    } catch (e) {
       Swal.fire({
-        title : 'Error',
-        icon : 'error',
-        text : 'Error creating Tutor'
-      })
+        title: "Error",
+        icon: "error",
+        text: "Error creating Tutor",
+      });
       console.error(e);
     }
   };
@@ -67,9 +67,7 @@ const Page = () => {
 
   return (
     <>
-        
       <div className="mt-20 m-4 grid md:grid-cols-3 grid-cols-1">
- 
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
@@ -103,7 +101,6 @@ const Page = () => {
             name="qualification"
             variant="outlined"
             color="success"
-            
             value={formData.qualification}
             onChange={(e) => handleChange(e)}
             required
@@ -119,7 +116,6 @@ const Page = () => {
                 name="primaryLanguage"
                 variant="outlined"
                 color="success"
-                
                 required
               />
             )}
@@ -127,7 +123,6 @@ const Page = () => {
               setFormData({ ...formData, primaryLanguage: newValue });
             }}
             value={formData.primaryLanguage}
-            
           ></Autocomplete>
         </div>
         <div className="mt-4 w-[25rem]">
@@ -140,7 +135,6 @@ const Page = () => {
                 name="secondaryLanguage"
                 variant="outlined"
                 color="success"
-                
                 required
               />
             )}
@@ -172,7 +166,7 @@ const Page = () => {
         </div>
         <div className="mt-4 md:w-[25rem] w-[100%]">
           <Autocomplete
-            options={['available', 'busy', 'offline']}
+            options={["available", "busy", "offline"]}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -188,11 +182,10 @@ const Page = () => {
             }}
             value={formData.status}
           ></Autocomplete>
-
         </div>
         <div className="mt-4 w-[25rem]">
           <Autocomplete
-            options={['Freelancer', 'Full Time', 'Part time']}
+            options={["Freelancer", "Full Time", "Part time"]}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -235,13 +228,16 @@ const Page = () => {
             multiline
           />
         </div>
-    
       </div>
       <div className="flex justify-center items-center">
-        <Button onClick={(e)=>handleSubmit(e)} variant="contained" color="success">Submit</Button>
+        <Button
+          onClick={(e) => handleSubmit(e)}
+          variant="contained"
+          color="success"
+        >
+          Submit
+        </Button>
       </div>
-
-      
     </>
   );
 };
