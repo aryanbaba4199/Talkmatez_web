@@ -38,9 +38,9 @@ const Page = () => {
       const res = await axios.post(Api.createTutor, { formData });
       if (res.status === 200) {
         Swal.fire({
-          title: "Success",
+          title: `Your Id : ${res.data.tutorId} `,
           icon: "success",
-          text: "Tutor Created Successfully",
+          text: "Account created successfully",
         });
       }
     } catch (e) {
