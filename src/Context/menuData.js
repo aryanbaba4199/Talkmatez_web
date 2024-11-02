@@ -8,13 +8,15 @@ export const SubMenuData = [
         icon : <FaPhoneAlt/>,
         subMenus : [
             {name : 'Call History',
-         
-            path : '/Admin/Dashboard'}, 
+             icon : <FaPhoneAlt/>,
+             
+            path : '/Admin/Dashboard/CallHistory'}, 
             {
                 name : 'users',
                 icon : <FaUserCircle/>,
-                path : '/Admin/Dashboard',
-            }
+                path : '/Admin/Dashboard/CallHistory',
+            }, 
+            
         ]
     }
 ]; 

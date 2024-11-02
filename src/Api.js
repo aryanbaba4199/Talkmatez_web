@@ -1,5 +1,8 @@
-// export const API_URL = 'http://192.168.31.145:4000';
-export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
+'use client'
+import axios from "axios";
+
+export const API_URL = 'http://192.168.31.145:4000';
+// export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
 
 const Api = {
   getTutorsAPI: `${API_URL}/tutors/getTutors`,
@@ -11,6 +14,24 @@ const Api = {
   getUsers: `${API_URL}/users/getUsers`,
   updateUser : `${API_URL}/users/updateUser`,
   createTutor : `${API_URL}/tutors/createTutor`,
+
+
+
+  // calls Details 
+  getCallLogs : `${API_URL}/users/admincalllogs`
+
 };
 
 export default Api;
+
+
+export const callerFunction = async(uri)=>{
+  try{
+    const res = await axios.get(uri)
+    return res; 
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+  
+}
