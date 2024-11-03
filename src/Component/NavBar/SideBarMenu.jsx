@@ -18,7 +18,7 @@ const SideBarMenu = ({ setShowMenu }) => {
     <div className="pt-20">
       <div>
         {SubMenuData.map((menu, index) => (
-          <div key={index}>
+          <div key={index} className="mt-2">
             {/* Parent Menu */}
             <div
               onClick={() => toggleMenu(menu.name)}
@@ -45,7 +45,7 @@ const SideBarMenu = ({ setShowMenu }) => {
                   onClick={() => setShowMenu(false)}
                   className="flex justify-start items-center pl-16 gap-2 hover:bg-gray-200 py-1 text-[#15892e]"
                 >
-                  {menu.icon}
+                  {subMenu.icon}
                   <Link href={subMenu.path}>{subMenu.name}</Link>
                 </div>
               ))}
@@ -53,13 +53,7 @@ const SideBarMenu = ({ setShowMenu }) => {
         ))}
       </div>
 
-      {/* Another static menu */}
-      <div
-        onClick={() => setShowMenu(false)}
-        className="flex justify-center items-center px-8 gap-2 hover:bg-gray-200 py-1 text-[#15892e]"
-      >
-        <Link href="/Admin/CreateTutor">Create Tutor</Link>
-      </div>
+      
     </div>
   );
 };

@@ -1,8 +1,8 @@
 'use client'
 import axios from "axios";
 
-export const API_URL = 'http://192.168.31.145:4000';
-// export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
+// export const API_URL = 'http://192.168.31.145:4000';
+export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
 
 const Api = {
   getTutorsAPI: `${API_URL}/tutors/getTutors`,
