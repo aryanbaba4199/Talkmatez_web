@@ -1,8 +1,9 @@
 'use client'
 import axios from "axios";
 
-// export const API_URL = 'http://192.168.31.145:4000';
-export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
+// export const API_URL = 'http://192.168.31.146:4000';
+export const API_URL = 'https://465e-2409-40e5-16f-a004-4197-a9b2-287f-fa61.ngrok-free.app'
+// export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
 
 const Api = {
   getTutorsAPI: `${API_URL}/tutors/getTutors`,
@@ -24,14 +25,18 @@ const Api = {
 
 export default Api;
 
-
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'ngrok-skip-browser-warning': 'true' // Potentially bypass ngrok warning (unconfirmed)
+  }
+});
 export const callerFunction = async(uri)=>{
   try{
-    const res = await axios.get(uri)
+    const res = await api.get(uri)
     return res; 
   }catch(e){
     console.error(e);
     throw e;
   }
-  
 }

@@ -62,6 +62,8 @@ const CallHistory = () => {
     return date.toLocaleString();
   };
 
+
+
   return (
     <>
       {loader ? (
@@ -87,13 +89,13 @@ const CallHistory = () => {
               <Table stickyHeader>
                 <TableHead className="bg-gray-200 ">
                   <TableRow>
-                    <TableCell className="font-bold">SN</TableCell>
-                    <TableCell className="font-bold">Student</TableCell>
-                    <TableCell className="font-bold">Tutor</TableCell>
-                    <TableCell className="font-bold">Start Time</TableCell>
-                    <TableCell className="font-bold">End Time</TableCell>
-                    <TableCell className="font-bold">Duration</TableCell>
-                    <TableCell className="font-bold">Action</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">SN</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">Student</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">Tutor</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">Start Time</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">End Time</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">Duration</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -177,26 +179,25 @@ const CallHistory = () => {
         </Card>
 
         {/* Session Timing */}
-        <Card elevation={2} className="p-4 bg-white">
-          <div className="flex items-center space-x-2 mb-4">
-            <ScheduleIcon className="text-[#15892e]" />
-            <Typography variant="subtitle1" className="font-semibold text-[#15892e]">
-              Session Timing
-            </Typography>
-          </div>
-          <Typography className="text-gray-700">
-          <Typography className="text-gray-700">
-            <strong>Call Status</strong> {formatDate(open?.end)}
-          </Typography>
-            <strong>Start Time:</strong> {formatDate(open?.start)}
-          </Typography>
-          <Typography className="text-gray-700">
-            <strong>End Time:</strong> {formatDate(open?.end)}
-          </Typography>
-          <Typography className="text-gray-700">
-            <strong>Duration :</strong> {formatDate(open?.end)-formatDate(open?.start)}
-          </Typography>
-        </Card>
+        {/* Session Timing */}
+<Card elevation={2} className="p-4 bg-white">
+  <div className="flex items-center space-x-2 mb-4">
+    <ScheduleIcon className="text-[#15892e]" />
+    <Typography variant="subtitle1" className="font-semibold text-[#15892e]">
+      Session Timing
+    </Typography>
+  </div>
+  <Typography className="text-gray-700">
+    <strong>Start Time:</strong> {formatDate(open?.start)}
+  </Typography>
+  <Typography className="text-gray-700">
+    <strong>End Time:</strong> {open?.end !== "0" ? formatDate(open?.end) : "Ongoing"}
+  </Typography>
+  <Typography className="text-gray-700">
+    <strong>Duration:</strong> {calculateDuration(open?.start, open?.end)}
+  </Typography>
+</Card>
+
       </DialogContent>
     </Dialog>
           <Dialog open={id !== null}>
