@@ -64,7 +64,7 @@ const Tutors = () => {
       </Typography>
       <Grid container spacing={3} className="w-full">
         {tutors.map((tutor) => (
-          <Grid item xs={12} sm={6} md={3} key={tutor.id}>
+          <Grid item xs={12} sm={6} md={3} key={tutor._id}>
             <Card className="flex flex-col rounded-lg shadow-lg p-5 transition transform hover:scale-105">
               <Box className="flex items-center mb-4">
                 <Avatar
@@ -80,7 +80,7 @@ const Tutors = () => {
                     {tutor.name}
                   </Typography>
                   <Typography variant="body2" className="text-gray-600">
-                    {tutor.specialty} Tutor
+                    {tutor.tutorId}
                   </Typography>
                 </Box>
                 <Tooltip title="Status">
@@ -102,6 +102,17 @@ const Tutors = () => {
                   </Typography>
                   <Typography variant="body2" className="font-semibold">
                     {tutor.callsHandled}
+                  </Typography>
+                </Box>
+                <Box className="flex items-center justify-between">
+                  <Typography variant="body2" className="text-gray-700">
+                    Tutor Status :
+                  </Typography>
+                  <Typography variant="body2" className="font-semibold">
+                  <p className={`${tutor.status === "available" ? "text-[#15892e]" : tutor.status === "busy" ? "text-[#FAB12F]" : "text-gray-600"}`}>
+  {tutor.status.toUpperCase()}
+</p>
+
                   </Typography>
                 </Box>
                 <Box className="flex items-center justify-between">
