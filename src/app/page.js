@@ -1,15 +1,14 @@
 import React from "react";
+
 import Tutors from "@/Component/Homepage/Tutors";
 
 
-const page = () => {
+const Page = () => {
   return (
-    <>
-    <div className="mt-4">
-      {/* <Tutors /> */}
-      </div>
-    </>
+    <div>
+      <Tutors/>
+    </div>
   );
 };
 
-export default page;
+export default Page;

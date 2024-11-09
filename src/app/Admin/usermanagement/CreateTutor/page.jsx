@@ -1,6 +1,6 @@
 "use client";
-import Api from "@/Api";
-import { Autocomplete, Button, TextField } from "@mui/material";
+import Api, { posterFunction } from "@/Api";
+import { Autocomplete, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -14,7 +14,7 @@ const defaulFormData = {
   primaryLanguage: "",
   secondaryLanguage: "",
   otherLanguage: "",
-  status: "",
+  status: "offline",
   tutorType: "",
   rate: "",
   greet: "",
@@ -35,14 +35,12 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(Api.createTutor, { formData });
-      if (res.status === 200) {
+      const res = await posterFunction(Api.createTutor, formData );
         Swal.fire({
           title: `Your Id : ${res.data.tutorId} `,
           icon: "success",
           text: "Account created successfully",
         });
-      }
     } catch (e) {
       Swal.fire({
         title: "Error",
@@ -67,11 +65,15 @@ const Page = () => {
 
   return (
     <>
-      <div className="mt-20 m-4 grid md:grid-cols-3 grid-cols-1">
+    <div className="flex justify-center items-center">
+      <Typography fontSize={20} fontWeight={700}>Create Tutor</Typography>
+    </div>
+    <form onSubmit={handleSubmit}>
+      <div className="mt-4 m-4 grid md:grid-cols-3 grid-cols-1">
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
-            label="Enter Your Name"
+            label="Enter Tutor Name"
             name="name"
             variant="outlined"
             color="success"
@@ -84,7 +86,7 @@ const Page = () => {
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
-            label="Enter Your Email"
+            label="Enter Tutor Email"
             name="email"
             variant="outlined"
             color="success"
@@ -97,7 +99,7 @@ const Page = () => {
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
-            label="Enter Your Qualification"
+            label="Qualification"
             name="qualification"
             variant="outlined"
             color="success"
@@ -112,7 +114,7 @@ const Page = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Select your Primary Language"
+                label="Select Primary Language"
                 name="primaryLanguage"
                 variant="outlined"
                 color="success"
@@ -131,7 +133,7 @@ const Page = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Select your Secondary Language"
+                label="Select Secondary Language"
                 name="secondaryLanguage"
                 variant="outlined"
                 color="success"
@@ -151,7 +153,7 @@ const Page = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Select your Other Language"
+                label="Select Other Language"
                 name="otherLanguage"
                 variant="outlined"
                 color="success"
@@ -164,7 +166,7 @@ const Page = () => {
             value={formData.otherLanguage}
           ></Autocomplete>
         </div>
-        <div className="mt-4 md:w-[25rem] w-[100%]">
+        {/* <div className="mt-4 md:w-[25rem] w-[100%]">
           <Autocomplete
             options={["available", "busy", "offline"]}
             renderInput={(params) => (
@@ -182,14 +184,14 @@ const Page = () => {
             }}
             value={formData.status}
           ></Autocomplete>
-        </div>
+        </div> */}
         <div className="mt-4 w-[25rem]">
           <Autocomplete
             options={["Freelancer", "Full Time", "Part time"]}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Select your Employeement type"
+                label="Select Employeement type"
                 name="tutorType"
                 variant="outlined"
                 color="success"
@@ -205,7 +207,7 @@ const Page = () => {
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
-            label="Select your rate in coins"
+            label="Rate in coins"
             name="rate"
             type="number"
             variant="outlined"
@@ -218,7 +220,7 @@ const Page = () => {
         <div className="mt-4 w-[25rem]">
           <TextField
             fullWidth
-            label="Write you greeting message"
+            label="greeting message"
             name="greet"
             variant="outlined"
             color="success"
@@ -228,16 +230,18 @@ const Page = () => {
             multiline
           />
         </div>
+       
       </div>
       <div className="flex justify-center items-center">
         <Button
-          onClick={(e) => handleSubmit(e)}
+          type="submit"
           variant="contained"
           color="success"
         >
           Submit
         </Button>
       </div>
+      </form>
     </>
   );
 };

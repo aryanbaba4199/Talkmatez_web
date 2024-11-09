@@ -1,9 +1,9 @@
 'use client'
 import axios from "axios";
 
-// export const API_URL = 'http://192.168.31.146:4000';
-export const API_URL = 'https://465e-2409-40e5-16f-a004-4197-a9b2-287f-fa61.ngrok-free.app'
-// export const API_URL = 'https://talkmatez-be-w97s.onrender.com';
+// export const API_URL = 'http://192.168.31.145:8080';
+export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
+
 
 const Api = {
   getTutorsAPI: `${API_URL}/tutors/getTutors`,
@@ -14,7 +14,10 @@ const Api = {
   getLanguages : `${API_URL}/helpers/getLanguages`,
   getUsers: `${API_URL}/users/getUsers`,
   updateUser : `${API_URL}/users/updateUser`,
+
+  //Tutors Api
   createTutor : `${API_URL}/tutors/createTutor`,
+  removeTutor : `${API_URL}/admin/tutors/deleteTutor`,
 
 
 
@@ -34,6 +37,27 @@ const api = axios.create({
 export const callerFunction = async(uri)=>{
   try{
     const res = await api.get(uri)
+    return res; 
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+}
+
+export const posterFunction = async(uri, formData)=>{
+  try{
+    const res = await api.post(uri, formData)
+    return res; 
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+
+}
+
+export const removerFunction = (uri)=>{
+  try{
+    const res = api.delete(uri)
     return res; 
   }catch(e){
     console.error(e);
