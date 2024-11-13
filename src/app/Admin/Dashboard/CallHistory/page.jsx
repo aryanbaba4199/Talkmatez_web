@@ -154,6 +154,10 @@ const CallHistory = () => {
             <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
             <span><strong>End Coins:</strong> {open?.studentEndCoin}</span>
           </div>
+          <div className="flex items-center text-gray-700 space-x-2">
+            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
+            <span><strong>Usage Coins:</strong> {open?.studentStartCoin - open?.studentEndCoin}</span>
+          </div>
         </div>
 
         {/* Tutor Information */}
@@ -175,6 +179,10 @@ const CallHistory = () => {
             <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
             <span><strong>End Coins:</strong> {open?.tutorEndCoin}</span>
           </div>
+          <div className="flex items-center text-gray-700 space-x-2">
+            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
+            <span><strong>Earn Coins :</strong> {open?.tutorEndCoin - open?.tutorStartCoin}</span>
+          </div>
         </div>
         </Card>
 
@@ -193,6 +201,7 @@ const CallHistory = () => {
   <Typography className="text-gray-700">
     <strong>End Time:</strong> {open?.end !== "0" ? formatDate(open?.end) : "Ongoing"}
   </Typography>
+  
   <Typography className="text-gray-700">
     <strong>Duration:</strong> {calculateDuration(open?.start, open?.end)}
   </Typography>

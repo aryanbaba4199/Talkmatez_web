@@ -109,10 +109,17 @@ const Tutors = () => {
                     Tutor Status :
                   </Typography>
                   <Typography variant="body2" className="font-semibold">
-                  <p className={`${tutor.status === "available" ? "text-[#15892e]" : tutor.status === "busy" ? "text-[#FAB12F]" : "text-gray-600"}`}>
-  {tutor.status.toUpperCase()}
-</p>
-
+                    <p
+                      className={`${
+                        tutor.status === "available"
+                          ? "text-[#15892e]"
+                          : tutor.status === "busy"
+                          ? "text-[#FAB12F]"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {tutor.status.toUpperCase()}
+                    </p>
                   </Typography>
                 </Box>
                 <Box className="flex items-center justify-between">
