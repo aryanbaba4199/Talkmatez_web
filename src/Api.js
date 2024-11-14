@@ -1,8 +1,8 @@
 'use client'
 import axios from "axios";
 
-// export const API_URL = 'http://192.168.31.145:8080';
-export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
+export const API_URL = 'http://192.168.31.145:8080';
+// export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
 
 
 const Api = {
@@ -50,7 +50,7 @@ export const posterFunction = async(uri, formData)=>{
     return res; 
   }catch(e){
     console.error(e);
-    throw e;
+    throw {details : e.response.data.message}
   }
 
 }

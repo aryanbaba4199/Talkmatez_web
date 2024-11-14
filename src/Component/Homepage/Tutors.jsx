@@ -60,7 +60,7 @@ const Tutors = () => {
         variant="h4"
         className="text-gray-800 font-bold mb-6 text-center"
       >
-        Tutor Dashboard
+       Dashboard
       </Typography>
       <Grid container spacing={3} className="w-full">
         {tutors.map((tutor) => (
@@ -74,16 +74,16 @@ const Tutors = () => {
                 />
                 <Box className="ml-4 flex-1">
                   <Typography
-                    variant="h6"
-                    className="text-gray-800 font-semibold"
+                    variant="body"
+                    className="text-[#15892e] font-semibold"
                   >
                     {tutor.name}
                   </Typography>
                   <Typography variant="body2" className="text-gray-600">
-                    {tutor.tutorId}
+                    {tutor.loginId}
                   </Typography>
                 </Box>
-                <Tooltip title="Status">
+                <Tooltip title={tutor.status.toUpperCase()}>
                   <div
                     className={`w-3 h-3 rounded-full ${
                       tutor.status === "Online"

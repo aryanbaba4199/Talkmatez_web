@@ -1,9 +1,10 @@
 "use client";
 import Api, { posterFunction } from "@/Api";
-import { Autocomplete, Button, TextField, Typography } from "@mui/material";
+import { Autocomplete, Button, Card, Dialog, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 
 const defaulFormData = {
   name: "",
@@ -18,10 +19,15 @@ const defaulFormData = {
   tutorType: "",
   rate: "",
   greet: "",
+  loginId: "",
+  password: "",
 };
 
 const Page = () => {
   const [formData, setFormData] = useState(defaulFormData);
+  const [credentialOpen, setCredentialOpen] = useState(false);
+  const [passwordView, setViewPassword] = useState(false);
+  
   const [languages, setLanguages] = useState("English");
 
   useEffect(() => {
@@ -36,16 +42,18 @@ const Page = () => {
     e.preventDefault();
     try {
       const res = await posterFunction(Api.createTutor, formData );
+      console.log(res);
         Swal.fire({
-          title: `Your Id : ${res.data.tutorId} `,
+          title: 'Success',
           icon: "success",
-          text: "Account created successfully",
+          text: res.data.message,
         });
+        
     } catch (e) {
       Swal.fire({
-        title: "Error",
+        title: "Failed",
         icon: "error",
-        text: "Error creating Tutor",
+        text: e.details,
       });
       console.error(e);
     }
@@ -62,6 +70,12 @@ const Page = () => {
       console.error(e);
     }
   };
+
+   
+
+  
+
+  
 
   return (
     <>
@@ -232,16 +246,69 @@ const Page = () => {
         </div>
        
       </div>
+      
       <div className="flex justify-center items-center">
         <Button
-          type="submit"
           variant="contained"
           color="success"
+          onClick={()=>setCredentialOpen(true)}
         >
           Submit
         </Button>
       </div>
+      <Dialog open={credentialOpen} onClose={()=>setCredentialOpen(false)}>
+        <div className="mt-4 px-16 p-2 flex justify-center items-center">
+          <Typography variant="h5" fontWeight={700} color="#15892e">Create Tutor Credential</Typography>
+        </div>
+        <div className="px-16 p-4">
+        <div>
+          <Card elevation={2}>
+          <div className="mt-4 w-[25rem]">
+          <TextField
+            fullWidth
+            label="Log In ID"
+            name="loginId"
+            variant="outlined"
+            color="success"
+            required
+            value={formData.loginId}
+            onChange={(e) => handleChange(e)}
+            
+          />
+        </div>
+        <div className="mt-4 w-[25rem]">
+          <TextField
+            fullWidth
+            label="Password"
+            type={passwordView ? 'text' : 'password'}
+            name="password"
+            variant="outlined"
+            color="success"
+            required
+            value={formData.password}
+            onChange={(e) => handleChange(e)}
+            
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={()=>setViewPassword(!passwordView)} edge="end">
+                    {passwordView ? <FaRegEyeSlash className="text-black" /> : <FaRegEye className="text-[#15892e]"/>}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+         
+        </div>
+          </Card>
+        </div>
+        <div className="flex justify-center items-center mt-4">
+        <Button variant="contained" color="success" type="submit" onClick={handleSubmit} >Create Tutor</Button>
+        </div>
+        </div>
+      </Dialog>
       </form>
+     
     </>
   );
 };

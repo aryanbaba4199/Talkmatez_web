@@ -21,3 +21,6 @@
     text-wrap: balance;
   }
 }
+.swal2-container {
+  z-index: 2000;
+}
