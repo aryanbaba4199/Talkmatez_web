@@ -1,10 +1,10 @@
 "use client";
 import Api, { callerFunction } from "@/Api";
 import React, { useEffect, useState } from "react";
-import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import ScheduleIcon from '@mui/icons-material/Schedule';
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 import {
   Table,
   TableBody,
@@ -46,7 +46,7 @@ const CallHistory = () => {
     setLoader(false);
   };
 
-  console.log(open); 
+  console.log(open);
 
   const calculateDuration = (start, end) => {
     if (end === "0") return "Ongoing";
@@ -62,7 +62,26 @@ const CallHistory = () => {
     return date.toLocaleString();
   };
 
-
+  const renderAction = (action) => {
+    switch (action) {
+      case 0:
+        return <p className="text-pink-700 font-semibold">Missed Call</p>;
+      case 1:
+        return <p className="text-red-600 font-semibold">Call Declined By Tutor</p>;
+      case 2:
+        return <p>Call Accepted By Tutor</p>;
+      case 3:
+        return <p className="text-[#15892e]">Call Ended by Student</p>;
+      case 4:
+        return <p className="text-blue-600">Call Ended by Tutor</p>;
+      case 5:
+        return <p className="text-orange-600 font-semibold">Student Disconnected</p>;
+      case 6:
+        return <p>Tutor Disconnected</p>;
+      default:
+        return <p>Unknown Action</p>;
+    }
+  };
 
   return (
     <>
@@ -89,13 +108,24 @@ const CallHistory = () => {
               <Table stickyHeader>
                 <TableHead className="bg-gray-200 ">
                   <TableRow>
-                    <TableCell className="font-bold text-[#15892e]">SN</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">Student</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">Tutor</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">Start Time</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">End Time</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">Duration</TableCell>
-                    <TableCell className="font-bold text-[#15892e]">Action</TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      SN
+                    </TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      Student
+                    </TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      Tutor
+                    </TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      Duration
+                    </TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      Call Action
+                    </TableCell>
+                    <TableCell className="font-bold text-[#15892e]">
+                      Details
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -104,19 +134,18 @@ const CallHistory = () => {
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{log.student}</TableCell>
                       <TableCell>{log.user}</TableCell>
-                      <TableCell>
-                        {new Date(log.start).toLocaleString()}
-                      </TableCell>
-                      <TableCell>
-                        {log.end !== "0"
-                          ? new Date(log.end).toLocaleString()
-                          : "Ongoing"}
-                      </TableCell>
+
                       <TableCell>
                         {calculateDuration(log.start, log.end)}
                       </TableCell>
                       <TableCell>
-                          <FaEye className="text-lg text-green-600" onClick={()=>setOpen(log)}/>
+                        {renderAction(parseInt(log.action))}
+                      </TableCell>
+                      <TableCell>
+                        <FaEye
+                          className="text-lg text-green-600"
+                          onClick={() => setOpen(log)}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -124,91 +153,162 @@ const CallHistory = () => {
               </Table>
             </TableContainer>
           </div>
-          <Dialog open={open !== null} onClose={() => setOpen(null)} maxWidth="sm" fullWidth className="mt-8">
-      <DialogTitle className="flex items-center justify-between border-b-2 border-gray-200 p-4">
-        <Typography variant="h6" className="font-semibold text-lg text-[#15892e]">
-          Call Log Details
-        </Typography>
-        <IconButton onClick={() => setOpen(null)} className="p-2 text-gray-500 hover:text-red-500">
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
+          <Dialog
+            open={open !== null}
+            onClose={() => setOpen(null)}
+            maxWidth="sm"
+            fullWidth
+            className="mt-8"
+          >
+            <DialogTitle className="flex items-center justify-between border-b-2 border-gray-200 p-4">
+              <Typography
+                variant="h6"
+                className="font-semibold text-lg text-[#15892e]"
+              >
+                Call Log Details
+              </Typography>
+              <IconButton
+                onClick={() => setOpen(null)}
+                className="p-2 text-gray-500 hover:text-red-500"
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
 
-      <DialogContent className="p-6 space-y-6 bg-gray-50">
-      <Card elevation={2} className="p-4 bg-white flex justify-between items-center">
-        <div className="p-4 bg-white">
-          <div className="flex items-center space-x-2 mb-4">
-            <PersonIcon className="text-[#15892e]" />
-            <Typography variant="subtitle1" className="font-semibold text-[#15892e]">
-              Student Information
-            </Typography>
-          </div>
-          <Typography className="text-gray-700">
-            <strong>Name:</strong> {open?.student}
-          </Typography>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>Start Coins:</strong> {open?.studentStartCoin}</span>
-          </div>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>End Coins:</strong> {open?.studentEndCoin}</span>
-          </div>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>Usage Coins:</strong> {open?.studentStartCoin - open?.studentEndCoin}</span>
-          </div>
-        </div>
+            <DialogContent className="p-6 space-y-6 bg-gray-50">
+              <Card
+                elevation={2}
+                className="p-4 bg-white flex justify-between items-center"
+              >
+                <div className="p-4 bg-white">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <PersonIcon className="text-[#15892e]" />
+                    <Typography
+                      variant="subtitle1"
+                      className="font-semibold text-[#15892e]"
+                    >
+                      Student Information
+                    </Typography>
+                  </div>
+                  <Typography className="text-gray-700">
+                    <strong>Name:</strong> {open?.student}
+                  </Typography>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>Start Coins:</strong> {open?.studentStartCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Coins:</strong> {open?.studentEndCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>Usage Coins:</strong>{" "}
+                      {open?.studentStartCoin - open?.studentEndCoin}
+                    </span>
+                  </div>
+                </div>
 
-        {/* Tutor Information */}
-        <div className="p-4 bg-white">
-          <div className="flex items-center space-x-2 mb-4">
-            <PersonIcon className="text-[#15892e]" />
-            <Typography variant="subtitle1" className="font-semibold text-[#15892e]">
-              Tutor Information
-            </Typography>
-          </div>
-          <Typography className="text-gray-700">
-            <strong>Name:</strong> {open?.user}
-          </Typography>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>Start Coins:</strong> {open?.tutorStartCoin}</span>
-          </div>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>End Coins:</strong> {open?.tutorEndCoin}</span>
-          </div>
-          <div className="flex items-center text-gray-700 space-x-2">
-            <MonetizationOnIcon fontSize="small" className="text-[#15892e]" />
-            <span><strong>Earn Coins :</strong> {open?.tutorEndCoin - open?.tutorStartCoin}</span>
-          </div>
-        </div>
-        </Card>
+                {/* Tutor Information */}
+                <div className="p-4 bg-white">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <PersonIcon className="text-[#15892e]" />
+                    <Typography
+                      variant="subtitle1"
+                      className="font-semibold text-[#15892e]"
+                    >
+                      Tutor Information
+                    </Typography>
+                  </div>
+                  <Typography className="text-gray-700">
+                    <strong>Name:</strong> {open?.user}
+                  </Typography>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>Start Coins:</strong> {open?.tutorStartCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Coins:</strong> {open?.tutorEndCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>Earn Coins :</strong>{" "}
+                      {open?.tutorEndCoin - open?.tutorStartCoin}
+                    </span>
+                  </div>
+                </div>
+              </Card>
 
-        {/* Session Timing */}
-        {/* Session Timing */}
-<Card elevation={2} className="p-4 bg-white">
-  <div className="flex items-center space-x-2 mb-4">
-    <ScheduleIcon className="text-[#15892e]" />
-    <Typography variant="subtitle1" className="font-semibold text-[#15892e]">
-      Session Timing
-    </Typography>
-  </div>
-  <Typography className="text-gray-700">
-    <strong>Start Time:</strong> {formatDate(open?.start)}
-  </Typography>
-  <Typography className="text-gray-700">
-    <strong>End Time:</strong> {open?.end !== "0" ? formatDate(open?.end) : "Ongoing"}
-  </Typography>
-  
-  <Typography className="text-gray-700">
-    <strong>Duration:</strong> {calculateDuration(open?.start, open?.end)}
-  </Typography>
-</Card>
+              {/* Session Timing */}
+              {/* Session Timing */}
+              <Card elevation={2} className="p-4 bg-white">
+                <div className="flex items-center space-x-2 mb-4">
+                  <ScheduleIcon className="text-[#15892e]" />
+                  <Typography
+                    variant="subtitle1"
+                    className="font-semibold text-[#15892e]"
+                  >
+                    Session Timing
+                  </Typography>
+                </div>
+                <Typography className="text-gray-700 flex justify-between px-8">
+                  <strong>Start Time:</strong> {formatDate(open?.start)}
+                </Typography>
+                <Typography className="text-gray-700 flex justify-between px-8">
+                  <strong>End Time:</strong>{" "}
+                  {open?.end !== "0" ? formatDate(open?.end) : "Ongoing"}
+                </Typography>
 
-      </DialogContent>
-    </Dialog>
+                <Typography className="text-gray-700 flex justify-between px-8">
+                  <strong>Duration:</strong>{" "}
+                  {calculateDuration(open?.start, open?.end)}
+                </Typography>
+                
+                {open?.connection===true && open?.action!==1 ? 
+                <Typography className="text-gray-700 flex justify-between px-8">
+                  <strong>Call Action :</strong>{" "}
+                  Missed Call
+                </Typography>
+                : 
+                <Typography className="text-gray-700 flex justify-between px-8">
+                  <strong>Call Action :</strong>{" "}
+                  {renderAction(parseInt(open?.action))}
+                </Typography>
+                }
+
+     
+              </Card>
+            </DialogContent>
+          </Dialog>
           <Dialog open={id !== null}>
             <UserDetails id={id} />
           </Dialog>
