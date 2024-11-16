@@ -54,6 +54,22 @@ const Tutors = () => {
     }
   };
 
+  const calculateAverageRating = (ratings) => {
+    console.log('Raw Ratings:', ratings);
+  
+    if (!ratings || ratings.length === 0) return 0;
+  
+    const validRatings = ratings.filter((item) => item && item.rating !== undefined);
+    console.log('Filtered Ratings:', validRatings);
+  
+    if (validRatings.length === 0) return 0;
+  
+    const total = validRatings.reduce((acc, curr) => acc + curr.rating, 0);
+    console.log('Total Ratings Sum:', total);
+  
+    return (total / validRatings.length).toFixed(1); 
+  };
+
   return (
     <Box className="mt-4 p-4 bg-gray-50 min-h-screen">
       <Typography
@@ -79,21 +95,24 @@ const Tutors = () => {
                   >
                     {tutor.name}
                   </Typography>
+                  <div className="flex justify-between items-center">
                   <Typography variant="body2" className="text-gray-600">
                     {tutor.loginId}
                   </Typography>
-                </Box>
-                <Tooltip title={tutor.status.toUpperCase()}>
+                  <Tooltip title={tutor.status.toUpperCase()}>
                   <div
                     className={`w-3 h-3 rounded-full ${
-                      tutor.status === "Online"
-                        ? "bg-green-500"
+                      tutor.status.toLowerCase() === "available"
+                        ? "bg-green-600"
                         : tutor.status === "Busy"
                         ? "bg-yellow-500"
                         : "bg-gray-400"
                     }`}
                   />
                 </Tooltip>
+                </div>
+                </Box>
+                
               </Box>
               <CardContent className="flex flex-col gap-2">
                 <Box className="flex items-center justify-between">
@@ -111,7 +130,7 @@ const Tutors = () => {
                   <Typography variant="body2" className="font-semibold">
                     <p
                       className={`${
-                        tutor.status === "available"
+                        tutor.status.toLowerCase() === "available"
                           ? "text-[#15892e]"
                           : tutor.status === "busy"
                           ? "text-[#FAB12F]"
@@ -126,8 +145,8 @@ const Tutors = () => {
                   <Typography variant="body2" className="text-gray-700">
                     Rating:
                   </Typography>
-                  <Typography variant="body2" className="font-semibold">
-                    {tutor.rating ?? 4} / 5
+                  <Typography variant="body2" className="font-semibold" color={calculateAverageRating(tutor?.rating) > 3 ? '#15892e' : '#FF5722'}>
+                    {calculateAverageRating(tutor?.rating)}
                   </Typography>
                 </Box>
               </CardContent>
