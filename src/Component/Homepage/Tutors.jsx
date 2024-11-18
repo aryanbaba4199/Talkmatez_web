@@ -18,9 +18,11 @@ import Swal from "sweetalert2";
 
 const Tutors = () => {
   const [tutors, setTutors] = useState([]);
+  const [socketLogs, setSocketLogs] = useState([]);
 
   useEffect(() => {
     getTutorsList();
+    getScoketLogs();
   }, []);
 
   const getTutorsList = async () => {
@@ -34,6 +36,15 @@ const Tutors = () => {
       console.error(e);
     }
   };
+
+  const getScoketLogs = async()=>{
+    try{
+      const res = await axios.get(Api.getSocketLogs);
+      setSocketLogs(res.data)
+    }catch(e){
+      console.error(e);
+    }
+  }
 
   const handleTutorDelete = async (id) => {
     try {
@@ -109,7 +120,7 @@ const Tutors = () => {
                         : "bg-gray-400"
                     }`}
                   />
-                </Tooltip>
+                </Tooltip> 
                 </div>
                 </Box>
                 
@@ -168,6 +179,18 @@ const Tutors = () => {
           </Grid>
         ))}
       </Grid>
+      <div>
+        {socketLogs && 
+          <>
+          {socketLogs.map((item, index)=>(
+            <div className="flex justify-center items-center">
+            <p key={index}>{item.logIs}</p>
+            <p>{item.who}</p>
+            </div>
+          ))}
+          </>
+        }
+        </div>
     </Box>
   );
 };

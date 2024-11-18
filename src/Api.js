@@ -22,7 +22,8 @@ const Api = {
 
 
   // calls Details 
-  getCallLogs : `${API_URL}/users/admincalllogs`
+  getCallLogs : `${API_URL}/users/admincalllogs`,
+  getSocketLogs : `${API_URL}/admin/socketlogs`
 
 };
 
