@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 
-// export const API_URL = 'http://192.168.31.145:8080';
+// export const API_URL = 'http://192.168.31.185:8080';
 export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
 
 
@@ -11,7 +11,7 @@ const Api = {
   createUserAPI: `${API_URL}/users/createUser`,
   getUserById: `${API_URL}/users/getUserDetails`,
   userLogInApi: `${API_URL}/users/login`,
-  getLanguages : `${API_URL}/helpers/getLanguages`,
+  
   getUsers: `${API_URL}/users/getUsers`,
   updateUser : `${API_URL}/users/updateUser`,
 
@@ -23,7 +23,23 @@ const Api = {
 
   // calls Details 
   getCallLogs : `${API_URL}/users/admincalllogs`,
-  getSocketLogs : `${API_URL}/admin/socketlogs`
+  getSocketLogs : `${API_URL}/admin/socketlogs`,
+
+  // Languages 
+  deleteLanguage : `${API_URL}/helpers/deleteLanguage`,
+  getLanguages : `${API_URL}/helpers/getLanguages`,
+  createLanguage : `${API_URL}/helpers/createLanguages`,
+
+
+  // Guides 
+  getGuides : `${API_URL}/helpers/getGuide`,
+  createGuide : `${API_URL}/helpers/createGuide`,
+  deleteGuide : `${API_URL}/helpers/deleteGuide`,
+
+  //country
+  getCountries : `${API_URL}/helpers/getCountry`,
+  createCountry : `${API_URL}/helpers/createCountry`,
+  deleteCountry : `${API_URL}/helpers/deleteCountry`,
 
 };
 

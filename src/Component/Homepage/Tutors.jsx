@@ -37,14 +37,14 @@ const Tutors = () => {
     }
   };
 
-  const getScoketLogs = async()=>{
-    try{
+  const getScoketLogs = async () => {
+    try {
       const res = await axios.get(Api.getSocketLogs);
-      setSocketLogs(res.data)
-    }catch(e){
+      setSocketLogs(res.data);
+    } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   const handleTutorDelete = async (id) => {
     try {
@@ -66,19 +66,21 @@ const Tutors = () => {
   };
 
   const calculateAverageRating = (ratings) => {
-    console.log('Raw Ratings:', ratings);
-  
+    console.log("Raw Ratings:", ratings);
+
     if (!ratings || ratings.length === 0) return 0;
-  
-    const validRatings = ratings.filter((item) => item && item.rating !== undefined);
-    console.log('Filtered Ratings:', validRatings);
-  
+
+    const validRatings = ratings.filter(
+      (item) => item && item.rating !== undefined
+    );
+    console.log("Filtered Ratings:", validRatings);
+
     if (validRatings.length === 0) return 0;
-  
+
     const total = validRatings.reduce((acc, curr) => acc + curr.rating, 0);
-    console.log('Total Ratings Sum:', total);
-  
-    return (total / validRatings.length).toFixed(1); 
+    console.log("Total Ratings Sum:", total);
+
+    return (total / validRatings.length).toFixed(1);
   };
 
   return (
@@ -87,7 +89,7 @@ const Tutors = () => {
         variant="h4"
         className="text-gray-800 font-bold mb-6 text-center"
       >
-       Dashboard
+        Dashboard
       </Typography>
       <Grid container spacing={3} className="w-full">
         {tutors.map((tutor) => (
@@ -96,7 +98,7 @@ const Tutors = () => {
               <Box className="flex items-center mb-4">
                 <Avatar
                   alt={tutor.name}
-                  src={tutor.avatar}
+                  src={tutor.image}
                   className="w-16 h-16"
                 />
                 <Box className="ml-4 flex-1">
@@ -107,23 +109,22 @@ const Tutors = () => {
                     {tutor.name}
                   </Typography>
                   <div className="flex justify-between items-center">
-                  <Typography variant="body2" className="text-gray-600">
-                    {tutor.loginId}
-                  </Typography>
-                  <Tooltip title={tutor.status.toUpperCase()}>
-                  <div
-                    className={`w-3 h-3 rounded-full ${
-                      tutor.status.toLowerCase() === "available"
-                        ? "bg-green-600"
-                        : tutor.status === "Busy"
-                        ? "bg-yellow-500"
-                        : "bg-gray-400"
-                    }`}
-                  />
-                </Tooltip> 
-                </div>
+                    <Typography variant="body2" className="text-gray-600">
+                      {tutor.loginId}
+                    </Typography>
+                    <Tooltip title={tutor.status.toUpperCase()}>
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          tutor.status.toLowerCase() === "available"
+                            ? "bg-green-600"
+                            : tutor.status === "Busy"
+                            ? "bg-yellow-500"
+                            : "bg-gray-400"
+                        }`}
+                      />
+                    </Tooltip>
+                  </div>
                 </Box>
-                
               </Box>
               <CardContent className="flex flex-col gap-2">
                 <Box className="flex items-center justify-between">
@@ -156,7 +157,15 @@ const Tutors = () => {
                   <Typography variant="body2" className="text-gray-700">
                     Rating:
                   </Typography>
-                  <Typography variant="body2" className="font-semibold" color={calculateAverageRating(tutor?.rating) > 3 ? '#15892e' : '#FF5722'}>
+                  <Typography
+                    variant="body2"
+                    className="font-semibold"
+                    color={
+                      calculateAverageRating(tutor?.rating) > 3
+                        ? "#15892e"
+                        : "#FF5722"
+                    }
+                  >
                     {calculateAverageRating(tutor?.rating)}
                   </Typography>
                 </Box>
@@ -179,18 +188,6 @@ const Tutors = () => {
           </Grid>
         ))}
       </Grid>
-      <div>
-        {socketLogs && 
-          <>
-          {socketLogs.map((item, index)=>(
-            <div className="flex justify-center items-center">
-            <p key={index}>{item.logIs}</p>
-            <p>{item.who}</p>
-            </div>
-          ))}
-          </>
-        }
-        </div>
     </Box>
   );
 };
