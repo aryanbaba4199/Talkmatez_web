@@ -91,7 +91,7 @@ const Page = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Guide Images</h1>
 
         <div className="mb-4 flex justify-between items-center">
-          <p className="text-gray-600">Manage guide images below. Click "Create Guide Image" to add a new one.</p>
+          <p className="text-gray-600">Manage guide images below. Click Create Guide Image to add a new one.</p>
           <Button
             variant="contained"
             color="primary"

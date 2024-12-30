@@ -71,7 +71,7 @@ const CountryPage = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Countries</h1>
 
         <div className="mb-4 flex justify-between items-center">
-          <p className="text-gray-600">Manage countries below. Click "Add Country" to create a new one.</p>
+          <p className="text-gray-600">Manage countries below. Click Add Country to create a new one.</p>
           <Button
             variant="contained"
             color="primary"
