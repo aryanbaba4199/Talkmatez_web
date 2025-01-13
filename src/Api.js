@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 
-// export const API_URL = 'http://192.168.31.185:8080';
+// export const API_URL = 'http://192.168.31.105:8080';
 export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
 
 
@@ -41,6 +41,12 @@ const Api = {
   createCountry : `${API_URL}/helpers/createCountry`,
   deleteCountry : `${API_URL}/helpers/deleteCountry`,
 
+  //Packages
+  getPackages : `${API_URL}/admin/packages/getPackage`,
+  createPackage : `${API_URL}/admin/packages/createPackage`,
+  deletePackage : `${API_URL}/admin/packages/deletePackage`,
+  updatePackage : `${API_URL}/admin/packages/updatePackage`,
+
 };
 
 export default Api;
@@ -67,7 +73,7 @@ export const posterFunction = async(uri, formData)=>{
     return res; 
   }catch(e){
     console.error(e);
-    throw {details : e.response.data.message}
+    throw {details : e?.response?.data?.message}
   }
 
 }
@@ -80,4 +86,15 @@ export const removerFunction = (uri)=>{
     console.error(e);
     throw e;
   }
+}
+
+export const updaterFunction=(uri, formData)=>{
+  try{
+    const res = axios.put(uri, formData)
+    return res; 
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+ 
 }

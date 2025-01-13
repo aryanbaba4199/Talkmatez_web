@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
-import { BiWorld } from "react-icons/bi";
+import { BiPackage, BiWorld } from "react-icons/bi";
 
 export const SubMenuData = [
   {
@@ -56,6 +56,11 @@ export const SubMenuData = [
 
         path: "/application/country",
       },
+      {
+        name : "Packages",
+        icon : <BiPackage />,
+        path : "/application/packages"
+      }
     ],
   },
 ];
