@@ -27,11 +27,16 @@ export const SubMenuData = [
     icon: <FaUserCircle />,
     subMenus: [
       {
-        name: "Create Tutor",
+        name: "Tutors",
         icon: <FaPhoneAlt />,
 
         path: "/Admin/usermanagement/CreateTutor",
       },
+      {
+        name: "Users",
+        icon: <FaUser />,
+        path: "/Admin/usermanagement/users",
+      }
     ],
   },
   {

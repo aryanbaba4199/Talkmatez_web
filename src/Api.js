@@ -47,6 +47,9 @@ const Api = {
   deletePackage : `${API_URL}/admin/packages/deletePackage`,
   updatePackage : `${API_URL}/admin/packages/updatePackage`,
 
+  //users
+  addCoins : `${API_URL}/admin/users/updateCoinsByAdmin`,
+
 };
 
 export default Api;
