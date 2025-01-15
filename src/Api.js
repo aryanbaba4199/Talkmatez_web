@@ -18,6 +18,7 @@ const Api = {
   //Tutors Api
   createTutor : `${API_URL}/tutors/createTutor`,
   removeTutor : `${API_URL}/admin/tutors/deleteTutor`,
+  updateTutor : `${API_URL}/admin/tutors/updateTutor`,
 
 
 

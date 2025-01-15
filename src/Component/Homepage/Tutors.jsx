@@ -12,17 +12,20 @@ import {
   IconButton,
   Tooltip,
   Grid,
+  Dialog,
 } from "@mui/material";
 import { Phone, Videocam, Message, Delete } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { FaEdit } from "react-icons/fa";
+import TutorForm from "@/app/Admin/usermanagement/CreateTutor/page";
 
 const Tutors = () => {
   const [tutors, setTutors] = useState([]);
-  const [socketLogs, setSocketLogs] = useState([]);
+  const [tutor, setTutor] = useState(null);
 
   useEffect(() => {
     getTutorsList();
-    getScoketLogs();
+
   }, []);
 
   const getTutorsList = async () => {
@@ -37,14 +40,7 @@ const Tutors = () => {
     }
   };
 
-  const getScoketLogs = async () => {
-    try {
-      const res = await axios.get(Api.getSocketLogs);
-      setSocketLogs(res.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+
 
   const handleTutorDelete = async (id) => {
     try {
@@ -70,18 +66,22 @@ const Tutors = () => {
 
     if (!ratings || ratings.length === 0) return 0;
 
-    const validRatings = ratings.filter(
-      (item) => item && item.rating !== undefined
-    );
-    console.log("Filtered Ratings:", validRatings);
+    // const validRatings = ratings.filter(
+    //   (item) => item && item.rating !== undefined
+    // );
+    // console.log("Filtered Ratings:", validRatings);
 
-    if (validRatings.length === 0) return 0;
+    // if (validRatings.length === 0) return 0;
 
-    const total = validRatings.reduce((acc, curr) => acc + curr.rating, 0);
-    console.log("Total Ratings Sum:", total);
+    // const total = validRatings.reduce((acc, curr) => acc + curr.rating, 0);
+    // console.log("Total Ratings Sum:", total);
 
-    return (total / validRatings.length).toFixed(1);
+    // return (total / validRatings.length).toFixed(1);
   };
+
+  const editTutor = async(id)=>{
+
+  }
 
   return (
     <Box className="mt-4 p-4 bg-gray-50 min-h-screen">
@@ -155,7 +155,7 @@ const Tutors = () => {
                 </Box>
                 <Box className="flex items-center justify-between">
                   <Typography variant="body2" className="text-gray-700">
-                    Rating:
+                    Rate
                   </Typography>
                   <Typography
                     variant="body2"
@@ -166,7 +166,7 @@ const Tutors = () => {
                         : "#FF5722"
                     }
                   >
-                    {calculateAverageRating(tutor?.rating)}
+                    {tutor?.rate}
                   </Typography>
                 </Box>
               </CardContent>
@@ -177,8 +177,8 @@ const Tutors = () => {
                 <IconButton>
                   <Videocam color="secondary" />
                 </IconButton>
-                <IconButton>
-                  <Message color="action" />
+                <IconButton onClick={()=>setTutor(tutor)}>
+                  <FaEdit color="#15892e" />
                 </IconButton>
                 <IconButton onClick={() => handleTutorDelete(tutor._id)}>
                   <Delete color="error" />
@@ -188,6 +188,9 @@ const Tutors = () => {
           </Grid>
         ))}
       </Grid>
+      <Dialog open={tutor} onClose={()=>setTutor(null)}>
+        <TutorForm editMode={tutor} setOpen={setTutor}/>
+      </Dialog>
     </Box>
   );
 };

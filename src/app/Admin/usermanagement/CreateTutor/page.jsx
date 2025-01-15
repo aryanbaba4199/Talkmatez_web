@@ -1,5 +1,5 @@
 "use client";
-import Api, { posterFunction } from "@/Api";
+import Api, { posterFunction, updaterFunction } from "@/Api";
 import { Autocomplete, Button, Card, Dialog, IconButton, InputAdornment, TextField, Typography, Box, Input } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ const defaulFormData = {
   password: "",
 };
 
-const Page = () => {
+const Page = ({editMode, setOpen}) => {
   const [formData, setFormData] = useState(defaulFormData);
   const [credentialOpen, setCredentialOpen] = useState(false);
   const [passwordView, setViewPassword] = useState(false);
@@ -33,6 +33,9 @@ const Page = () => {
 
   useEffect(() => {
     getLanguages();
+    if(editMode){
+      setFormData(editMode);
+    }
   }, []);
 
 
@@ -93,7 +96,24 @@ const Page = () => {
   };
 
    
-
+  const handleUpdate = async()=>{
+    try{
+      const res = await updaterFunction(Api.updateTutor, {formData})
+      Swal.fire({
+        title: 'Success',
+        icon: "success",
+        text: 'Tutor updated successfully',
+      })
+      setOpen(null)
+    }catch(e){
+      Swal.fire({
+        title: "Failed",
+        icon: "error",
+        text: e.details,
+      });
+      console.error(e);
+    }
+  }
   
 
   
@@ -131,9 +151,9 @@ const Page = () => {
     </Box>
     {languages?.length>0 &&
     <form onSubmit={handleSubmit}>
-      <div className="mt-4 m-4 grid md:grid-cols-3 grid-cols-1">
+      <div className="mt-4 m-4 grid md:grid-cols-3 gap-2 grid-cols-1">
         
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="Enter Tutor Name"
@@ -146,7 +166,7 @@ const Page = () => {
             required
           />
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="Enter Tutor Email"
@@ -159,7 +179,7 @@ const Page = () => {
             required
           />
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="Qualification"
@@ -171,7 +191,7 @@ const Page = () => {
             required
           />
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <Autocomplete
             options={languages.map(item=>item.name)}
             renderInput={(params) => (
@@ -190,7 +210,7 @@ const Page = () => {
             value={formData.primaryLanguage}
           ></Autocomplete>
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <Autocomplete
             options={languages.map(item=>item.name)}
             renderInput={(params) => (
@@ -210,7 +230,7 @@ const Page = () => {
           ></Autocomplete>
         </div>
 
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <Autocomplete
             options={languages.map(item=>item.name)}
             renderInput={(params) => (
@@ -229,7 +249,7 @@ const Page = () => {
             value={formData.otherLanguage}
           ></Autocomplete>
         </div>
-        {/* <div className="mt-4 md:w-[25rem] w-[100%]">
+        {/* <div className="mt-4 md: w-[100%]">
           <Autocomplete
             options={["available", "busy", "offline"]}
             renderInput={(params) => (
@@ -248,7 +268,7 @@ const Page = () => {
             value={formData.status}
           ></Autocomplete>
         </div> */}
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <Autocomplete
             options={["Freelancer", "Full Time", "Part time"]}
             renderInput={(params) => (
@@ -267,7 +287,7 @@ const Page = () => {
             value={formData.tutorType}
           ></Autocomplete>
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="Rate in coins"
@@ -280,7 +300,7 @@ const Page = () => {
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="greeting message"
@@ -297,13 +317,21 @@ const Page = () => {
       </div>
       
       <div className="flex justify-center items-center">
+        {editMode ? 
         <Button
           variant="contained"
           color="success"
-          onClick={()=>setCredentialOpen(true)}
+          onClick={()=>handleUpdate()}
         >
-          Submit
+          Update
         </Button>
+ : <Button
+ variant="contained"
+ color="success"
+ onClick={()=>setCredentialOpen(true)}
+>
+ Submit
+</Button>}
       </div>
       <Dialog open={credentialOpen} onClose={()=>setCredentialOpen(false)}>
         <div className="mt-4 px-16 p-2 flex justify-center items-center">
@@ -312,7 +340,7 @@ const Page = () => {
         <div className="px-16 p-4">
         <div>
           <Card elevation={2}>
-          <div className="mt-4 w-[25rem]">
+          <div className="mt-4 ">
           <TextField
             fullWidth
             label="Log In ID"
@@ -325,7 +353,7 @@ const Page = () => {
             
           />
         </div>
-        <div className="mt-4 w-[25rem]">
+        <div className="mt-4 ">
           <TextField
             fullWidth
             label="Password"
