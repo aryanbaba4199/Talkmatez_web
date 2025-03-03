@@ -1,5 +1,6 @@
 import {
   FaGuilded,
+  FaImages,
   FaLanguage,
   FaPhoneAlt,
   FaUser,
@@ -65,7 +66,12 @@ export const SubMenuData = [
         name : "Packages",
         icon : <BiPackage />,
         path : "/application/packages"
-      }
+      },
+      {
+        name : "Sliders",
+        icon : <FaImages />,
+        path : "/application/sliders"
+      },
     ],
   },
 ];

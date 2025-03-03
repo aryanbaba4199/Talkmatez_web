@@ -199,7 +199,7 @@ const CallHistory = () => {
                       className="text-[#15892e]"
                     />
                     <span>
-                      <strong>Start Coins:</strong> {open?.studentStartCoin}
+                      <strong>Start Gold Coins:</strong> {open?.studentStartGoldCoin}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-700 space-x-2">
@@ -208,7 +208,25 @@ const CallHistory = () => {
                       className="text-[#15892e]"
                     />
                     <span>
-                      <strong>End Coins:</strong> {open?.studentEndCoin}
+                      <strong>Start Silver Coins :</strong> {open?.studentStartSilverCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Gold Coins:</strong> {open?.studentEndGoldCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Silver Coins:</strong> {open?.studentEndSilverCoin}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-700 space-x-2">
@@ -218,7 +236,7 @@ const CallHistory = () => {
                     />
                     <span>
                       <strong>Usage Coins:</strong>{" "}
-                      {open?.studentStartCoin - open?.studentEndCoin}
+                      {open?.charge}
                     </span>
                   </div>
                 </div>
@@ -243,7 +261,7 @@ const CallHistory = () => {
                       className="text-[#15892e]"
                     />
                     <span>
-                      <strong>Start Coins:</strong> {open?.tutorStartCoin}
+                      <strong>Start Gold Coins:</strong> {open?.tutorStartGoldCoin}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-700 space-x-2">
@@ -252,7 +270,25 @@ const CallHistory = () => {
                       className="text-[#15892e]"
                     />
                     <span>
-                      <strong>End Coins:</strong> {open?.tutorEndCoin}
+                      <strong>Start Silver Coins:</strong> {open?.tutorStartSilverCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Gold Coins:</strong> {open?.tutorEndGoldCoin}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 space-x-2">
+                    <MonetizationOnIcon
+                      fontSize="small"
+                      className="text-[#15892e]"
+                    />
+                    <span>
+                      <strong>End Silver Coins:</strong> {open?.tutorEndSilverCoin}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-700 space-x-2">
@@ -262,7 +298,7 @@ const CallHistory = () => {
                     />
                     <span>
                       <strong>Earn Coins :</strong>{" "}
-                      {open?.tutorEndCoin - open?.tutorStartCoin}
+                      {open?.charge}
                     </span>
                   </div>
                 </div>
