@@ -5,6 +5,7 @@ import Api, { callerFunction, removerFunction } from "@/Api";
 import { Button, Card, Typography, IconButton } from "@mui/material";
 import { MdEdit, MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import { FaCoins } from "react-icons/fa";
 
 const Page = () => {
   const [pkgData, setPkgData] = useState([]);
@@ -65,6 +66,7 @@ const Page = () => {
                     Narration: {item.narration}
                   </Typography>
                   <p className="font-semibold mb-2">Price: ₹{item.amount}</p>
+                  <p className="font-semibold mb-2 flex gap-4 items-center">Coins: <FaCoins/> {item.coins}</p>
                   <p className="text-sm text-gray-500 mb-4">
                     Icon: {item.icon}
                   </p>

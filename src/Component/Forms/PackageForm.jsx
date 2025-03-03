@@ -5,6 +5,7 @@ import { MdTitle } from "react-icons/md";
 import { BiDetail } from "react-icons/bi";
 import Api, { posterFunction, updaterFunction } from "@/Api";
 import Swal from "sweetalert2";
+import { FaCoins } from "react-icons/fa";
 
 const CreatePackageForm = ({ editMode, setOpen }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const CreatePackageForm = ({ editMode, setOpen }) => {
     narration: "",
     icon: "",
     amount: "",
+    coins : "",
   });
 
   const handleChange = (e) => {
@@ -137,6 +139,24 @@ const CreatePackageForm = ({ editMode, setOpen }) => {
             value={formData.amount}
             onChange={handleChange}
             placeholder="Enter amount"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="flex items-center gap-2 text-gray-700 font-medium mb-2"
+            htmlFor="amount"
+          >
+            <FaCoins size={20} /> Coins
+          </label>
+          <TextField
+            id="coins"
+            name="coins"
+            variant="outlined"
+            type="number"
+            fullWidth
+            value={formData.coins}
+            onChange={handleChange}
+            placeholder="Enter Coins Value"
           />
         </div>
 
