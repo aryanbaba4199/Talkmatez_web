@@ -1,8 +1,8 @@
 'use client'
 import axios from "axios";
 
-export const API_URL = 'http://192.168.31.105:8080';
-// export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
+// export const API_URL = 'http://192.168.31.105:8080';
+export const API_URL = 'https://talkmatez-be-1064837086369.asia-east2.run.app'
 
 
 const Api = {
