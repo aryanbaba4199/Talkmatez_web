@@ -11,6 +11,7 @@ const Api = {
   createUserAPI: `${API_URL}/users/createUser`,
   getUserById: `${API_URL}/users/getUserDetails`,
   userLogInApi: `${API_URL}/users/login`,
+  login : `${API_URL}/admin/login`,
   
   getUsers: `${API_URL}/users/getUsers`,
   updateUser : `${API_URL}/users/updateUser`,
@@ -50,6 +51,7 @@ const Api = {
 
   //users
   addCoins : `${API_URL}/admin/users/updateCoinsByAdmin`,
+  removeUser : `${API_URL}/users/removeUser`,
 
   //sliders
 

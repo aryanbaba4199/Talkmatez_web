@@ -10,9 +10,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import SideBarMenu from './SideBarMenu';
 import { Drawer } from '@mui/material';
+import { useApp } from '../Helpers/AppContext';
+import { IoIosLogOut } from "react-icons/io";
 
 export default function ButtonAppBar() {
     const [showMenu, setShowMenu] = useState(false);
+    const {user, setUser} = useApp();
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
@@ -33,7 +36,21 @@ export default function ButtonAppBar() {
           <Typography className='hover:cursor-pointer' onClick={()=>window.location.href='/'} variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Talkmatez
           </Typography>
-          <Button color="inherit">Login</Button>
+          
+         
+          {user===null ? <div className='bg-red-600 px-4 rounded-md flex gap-4 items-center'>
+       
+            <Button onClick={()=>{
+              localStorage.removeItem('token');
+              setUser(null)
+              window.location.reload()
+            }} color="inherit">Log out</Button>
+            <IoIosLogOut className='text-lg font-bold'/>
+            </div>
+          
+         :  <div><Button color="inherit">Login</Button></div>
+         
+         }
         </Toolbar>
       </AppBar>
     </Box>
