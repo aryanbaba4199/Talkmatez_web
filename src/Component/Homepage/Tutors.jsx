@@ -18,10 +18,12 @@ import { Phone, Videocam, Message, Delete } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import { FaEdit } from "react-icons/fa";
 import TutorForm from "@/app/Admin/usermanagement/CreateTutor/page";
+import Loaders from "../Helpers/Loaders";
 
 const Tutors = () => {
   const [tutors, setTutors] = useState([]);
   const [tutor, setTutor] = useState(null);
+  const [loading, setLoading] = useState(true); //
 
   useEffect(() => {
     getTutorsList();
@@ -29,14 +31,17 @@ const Tutors = () => {
   }, []);
 
   const getTutorsList = async () => {
+    setLoading(false);
     try {
       const res = await axios.get(Api.getTutorsAPI);
       if (res.status === 200) {
         setTutors(res.data);
         console.log(res.data);
       }
+      setLoading(false);
     } catch (e) {
       console.error(e);
+      setLoading(false)
     }
   };
 
@@ -84,6 +89,8 @@ const Tutors = () => {
   }
 
   return (
+    <>
+    {loading ? <Loaders/> : 
     <Box className="mt-4 p-4 bg-gray-50 min-h-screen">
       <Typography
         variant="h4"
@@ -192,6 +199,8 @@ const Tutors = () => {
         <TutorForm editMode={tutor} setOpen={setTutor}/>
       </Dialog>
     </Box>
+}
+    </>
   );
 };
 
