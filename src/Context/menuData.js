@@ -2,6 +2,7 @@ import {
   FaGuilded,
   FaImages,
   FaLanguage,
+  FaMoneyBill,
   FaPhoneAlt,
   FaUser,
   FaWeibo,
@@ -20,6 +21,12 @@ export const SubMenuData = [
         icon: <FaPhoneAlt />,
 
         path: "/Admin/Dashboard/CallHistory",
+      },
+      {
+        name: "Transaction",
+        icon: <FaMoneyBill />,
+
+        path: "/Admin/Dashboard/transaction",
       },
     ],
   },
