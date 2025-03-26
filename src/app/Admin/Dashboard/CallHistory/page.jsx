@@ -1,5 +1,6 @@
 "use client";
 import Api, { callerFunction } from "@/Api";
+import UserDetails from "@/Component/Users/UserDetails";
 import { Dialog } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FaEye, FaSearch } from "react-icons/fa";
